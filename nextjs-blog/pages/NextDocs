@@ -1,0 +1,4 @@
+    To start a Next.js App use 
+    "npm run dev or yarn dev to start the development server on http://localhost:3000"
+
+<Head> is used instead of <head>
