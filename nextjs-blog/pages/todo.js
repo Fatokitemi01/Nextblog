@@ -1,30 +1,33 @@
 import Link from 'next/link'
 import Head from 'next/head'
-import Script from 'next/script'
+// import Script from 'next/script'
 import { useState } from 'react'
 
 
 
-export default function FirstPost() {
+export default function Todo() {
 const[userInput,setUserInput] =useState('')
 //create state props
 const[todoList,setTodoList] =useState([])
 const handleChange = (e) =>{
     e.preventDefault();
-
-    setUserInput = (e.target.value)
-    console.log(setUserInput)
+    setUserInput(e.target.value)
+    console.log(userInput)
 }
 
 //handling submit
 const handleSubmit =(e)=>{
 
-setTodoList({
-  setUserinput,
-  ...todoList
+setTodoList([...todoList,{elt:userInput}])
+console.log(todoList)
+setUserInput(' ')
+}
 
-})
+//delete functionality
+const handleDelete =(todo)=>{
+  const updatedArr = todoList.filter(todoItem=> todoList.indexOf(todoItem) != todoList.indexOf(todo) )
 
+  setTodoList(updatedArr)
 }
 
   return (
@@ -32,17 +35,17 @@ setTodoList({
     <Head>
     <title>Todo List</title>
     </Head>
- 
-    0.
-    
     <h1>TodoList App</h1>
-    <form>
-        <input type="text" onChange={handleChange}/><button onClick={handleSubmit}>Submit</button>
-        </form>
+        <input type="text" placeholder="enter a todo item"value={userInput} onChange={handleChange}/>
+        <button  onClick={handleSubmit}>Submit</button>
      <ul>
        {
        todoList.length>=1 ? todoList.map((todo,idx) =>{
-         return <li key={idx}>{todo}</li>
+         return <li key={idx}>{todo.elt}<button onClick ={(e) =>{
+           e.preventDefault()
+           handleDelete(todo)
+        
+        }}  >Delete</button></li>
        })
        :'Enter a Todo Item'
 
@@ -61,3 +64,6 @@ setTodoList({
     
   )
 }
+
+
+
